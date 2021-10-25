@@ -1,13 +1,15 @@
 // First sample function window.alert("This is an alert!! JavaScript is running!");
+
+// Call the function 
+//fight();
+
+// Some psuedo Code:
 /*
-// This does math!
-console.log(10 + 10);
+Win Conidtion: - player robot has defea ted all enemy-robots
+    *   Fight all enemy robots
+    *   Defeate each enemy robots
 
-// Displays strings
-console.log("This logs a string, good for leaving yourself a message");
-
-// What is this?
-console.log("Our robot's name is: " + playerName);
+Lose Condition: - Player robot's health is zero or less
 */
 
 // Store Robot name in variable
@@ -19,18 +21,18 @@ var playerMoney = 10;
 // You can also log multiple values at once like this
 console.log(playerName, playerAttack, playerHealth);
 
-var enemyName = "Roberto"
+var enemyNames = ["Roberto","Amy Android", "Robo Trumble" ]; //Array of enemy robots
 var enemyHealth = 50;
 var enemyAttack = 12;
 
 // New Fight Function - Functio Expression (assinged to variable)
-var fight = function(){
+var fight = function(enemyName){ //Local var in function 
 
     // Decision to Fight
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
     if (promptFight.toLowerCase() === "skip"){ // Choose to skip
-        
+
         var confirmSkip = window.confirm("Are you sure you'd like to quit?"); // Confirm to skip: Window pops up
         if(confirmSkip){
             window.alert(playerName + " has chosen to skip the fight!");
@@ -66,4 +68,13 @@ var fight = function(){
         window.alert("You need to choose a valid option. Try again!");
     }
 }
-fight();
+
+//Display enemy Info
+for(var i = 0; i < enemyNames.length; i++) { 
+    // console.log(enemyNames[i]);
+    // console.log(i);
+    // console.log(enemyNames[i] + " is at " + i + " index");
+    fight(enemyNames[i]);
+  }
+
+
