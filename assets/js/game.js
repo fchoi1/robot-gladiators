@@ -27,7 +27,15 @@ var enemyNames = ["Roberto","Amy Android", "Robo Trumble" ]; //Array of enemy ro
 var enemyHealth = 20;
 var enemyAttack = 12;
 
-// New Fight Function - Functio Expression (assinged to variable)
+// Shop variables
+
+var healthCost = 7;
+var upgradeCost = 7;
+var healthIncrease = 20;
+var upgradeIncrease = 6;
+
+
+// Fight Function - Functio Expression (assinged to variable)
 var fight = function(enemyName){ //Local var in function 
 
     while (playerHealth > 0 && enemyHealth > 0){ // Keep looping until either enemy or player robot is defeated
@@ -76,8 +84,64 @@ var fight = function(enemyName){ //Local var in function
     }  
 }
 
-// start the game function
+// Shop function
+var shop = function(){
+    console.log("Entered the shop");
+    
+    let shopChoice = window.prompt("What do you want to do: REFILL health, UPGRADE your attack, LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice ");
 
+    //Switch Case
+
+    switch (shopChoice.toLowerCase()){
+        case "REFILL":
+        case "refill":
+            if (playerMoney >= healthCost){
+                window.alert("Refilling player's health by " + healthIncrease + " for " + healthCost + " dollars.");
+                playerMoney -= healthCost;
+                playerHealth += healthIncrease;
+            }else{
+                window.alert("You don't have enough money!");
+            }
+            break;
+        case "UPGRADE":
+        case "upgrade":
+            if (playerMoney >= upgradeCost){
+                window.alert("Upgrade player's attack by " + upgradeIncrease + " for " + upgradeCost + " dollars.");
+                playerMoney -= upgradeCost;
+                playerAttack += upgradeIncrease;
+            }else{
+                window.alert("You don't have enough money!");
+            }
+            break;
+        case "LEAVE":
+        case "leave":
+            window.alert("Leaving the store.");
+            break;
+        default: // equivalent to else
+            window.alert("You did not pick a valid option. Try again.");
+            shop();
+            break;
+
+    }
+}
+
+// Check end game condition
+var endGame = function(){
+    
+    if (playerHealth > 0) { // Player win
+        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".");
+    }else{     // Player lost
+        window.alert("You've lost your robot in battle :(");
+    }
+
+    var playAgainConfirm = window.confirm("Do you want to play again?");
+    if (playAgainConfirm){
+        startGame();
+    }else{
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+}
+// start the game function
 var startGame = function(){
 
     //Reset Stats
@@ -97,6 +161,12 @@ var startGame = function(){
             window.alert("You have lost your robot in Battle! Game Over!");
             break;
         }
+
+        if (playerHealth > 0 && i < enemyNames.length - 1){// Check if last enemy and still alive
+
+            var storeConfirm = window.confirm("The fight is over, visit the store before next round?");
+            shop();
+        }
     }
     // play again
     endGame();
@@ -105,41 +175,5 @@ var startGame = function(){
 }
 
 
-// Check end game condition
-var endGame = function(){
-    
-    if (playerHealth > 0) { // Player win
-        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".");
-    }else{     // Player lost
-        window.alert("You've lost your robot in battle :(");
-    }
-
-
-    var playAgainConfirm = window.confirm("Do you want to play again?");
-    if (playAgainConfirm){
-        startGame();
-    }else{
-        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
-    }
-}
-
-
-// Shop function
-
-var shop = function(){
-    let shopChoice = window.prompt("At the shop, What you wanna do?")
-
-    if (shopChoice.toLowerCase == "refill"){
-
-    }else if (shopChoice.toLowerCase == "upgrade"){
-
-    }else if (shopChoice.toLowerCase == "leave"){
-
-    }else{
-        
-    }
-
-}
-
-//Start game
+//start Game
 startGame();
